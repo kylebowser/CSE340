@@ -84,6 +84,14 @@ header {
   padding: 20px;
 }
 
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 25px;
+  place-items: center;
+  list-style: none;
+}
+
 footer {
   text-align: left;
 }
@@ -128,5 +136,24 @@ nav a {
   .lowerLayer {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+
+  #car-display {
+    display: grid;
+    grid-template-areas:
+      "image info"
+      "image info";
+  }
+
+  #car-pic {
+    grid-area: image;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  #car-info {
+    grid-area: info;
+    padding: 10px;
+    margin: 10px;
   }
 }
