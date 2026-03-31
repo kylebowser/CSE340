@@ -84,6 +84,57 @@ Util.buildDetailsDisplay = async function(data){
   return display
 }
 
+Util.buildManipulatorDisplay = async function(){
+  let display
+  display = '<p><a href="/inv/addCat" >Add Category</a></p>' +
+  '<p><a href="/inv/addInv" >Add Inventory</a></p>'
+
+  return display
+}
+
+Util.buildAddCatDisplay = async function(){
+  let display
+  display = `
+  <form method="post" action="/inv/addCat" class="wf1">
+  <fieldset>
+    <label for="classification_name"
+      >Add Category: <span>New classification name cannot contain a space or special character of any kind</span><input
+        type="text"
+        name="classification_name"
+        id="classification_name"
+        required
+        pattern="^[A-Za-z0-9]+$"
+    /></label>
+    <label for="submit"
+      ><input type="submit" id="submit" value="Create"
+    /></label>
+  </fieldset>
+</form>
+`
+return display
+}
+
+
+Util.buildClassificationList = async function (classification_id = null) {
+    let data = await invModel.getClassifications()
+    let classificationList =
+      '<select name="classification_id" id="classificationList" required>'
+    classificationList += "<option value=''>Choose a Classification</option>"
+    data.rows.forEach((row) => {
+      classificationList += '<option value="' + row.classification_id + '"'
+      if (
+        classification_id != null &&
+        row.classification_id == classification_id
+      ) {
+        classificationList += " selected "
+      }
+      classificationList += ">" + row.classification_name + "</option>"
+    })
+    classificationList += "</select>"
+    return classificationList
+  }
+
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

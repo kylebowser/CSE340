@@ -1,12 +1,12 @@
 <h1><%= title %></h1>
 <%- messages() %>
 
-<form method="get" action="confirmation.html" class="wf1">
+<form method="post" action="/account/login" class="wf1">
   <fieldset>
     <label for="email"
       >Email<input
         type="email"
-        name="email"
+        name="account_email"
         id="email"
         placeholder="example@example.com"
         required

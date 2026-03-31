@@ -115,6 +115,32 @@ nav a {
   text-align: center;
 }
 
+form {
+  top: 50%;
+  left: 50%;
+  background: var(--overlap);
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+}
+
+.wf1 label {
+  display: block;
+  text-align: center;
+  padding: 1rem;
+  color: var(--border-color);
+  font-size: 0.9rem;
+}
+
+#classificationList {
+  display: block;
+  margin: 0 auto;
+}
+
+#submit {
+  display: block;
+  margin: 0 auto 0 auto;
+}
+
 @media only screen and (min-width: 1000px) {
   body {
     background-image: url("../images/site/checkerboard.jpg");
