@@ -24,7 +24,7 @@ router.post('/addCat', invValidator.categoryRules(), invValidator.checkCatData, 
 router.get("/addInv", invController.buildAddInv);
 
 //Route to the Inventory adder post view
-router.post('/addInv', utilities.handleErrors(invController.createInventory))
+router.post('/addInv', invValidator.inventoryRules(), invValidator.checkInvData, utilities.handleErrors(invController.createInventory))
 
 //Route to build a 500 error
 router.get("/500", (req, res, next) => {
