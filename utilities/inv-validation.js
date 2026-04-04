@@ -5,7 +5,7 @@ const utilities = require(".")
   const validate = {}
 
   /*  **********************************
-  *  Registration Data Validation Rules
+  *  Inventory Data Validation Rules
   * ********************************* */
   validate.inventoryRules = () => {
     return [
@@ -71,7 +71,7 @@ const utilities = require(".")
   }
 
   /* ******************************
- * Check data and return errors or continue to registration
+ * Check data and return errors or continue
  * ***************************** */
 validate.checkInvData = async (req, res, next) => {
   const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body
@@ -91,6 +91,34 @@ validate.checkInvData = async (req, res, next) => {
       inv_miles, 
       inv_color, 
       classification_id,
+    })
+    return
+  }
+  next()
+}
+
+  /* ******************************
+ * Check data and return errors or continue to edit view
+ * ***************************** */
+validate.checkUpdateData = async (req, res, next) => {
+  const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id, inv_id } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("inventory/edit-inventory", {
+      errors,
+      title: inv_make, inv_model,
+      nav,
+      inv_make, 
+      inv_model, 
+      inv_year, 
+      inv_description, 
+      inv_price, 
+      inv_miles, 
+      inv_color, 
+      classification_id,
+      inv_id,
     })
     return
   }

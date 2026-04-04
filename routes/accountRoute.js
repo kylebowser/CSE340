@@ -12,15 +12,14 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin))
 //Route for the signup screen
 router.get("/signup",utilities.handleErrors(accountController.buildSignup))
 
+router.get('/', utilities.checkLogin, utilities.handleErrors(accountController.buildActMan))
+
 //Route for the post of signup
 router.post('/signup', regValidate.registationRules(), regValidate.checkRegData, utilities.handleErrors(accountController.registerAccount))
 
 // Process the login attempt
 router.post(
-  "/login",
-  (req, res) => {
-    res.status(200).send('login process')
-  }
+  "/login", utilities.handleErrors(accountController.accountLogin)
 )
 
 module.exports = router;

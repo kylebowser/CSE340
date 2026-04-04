@@ -17,6 +17,15 @@ router.get("/inventory", invController.buildManipulator);
 //Route to the Inventory manipulator view
 router.get("/addCat", invController.buildAddCat);
 
+//Route to build the get inventory view
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+//Route to build the edit inventory view
+router.get("/edit/:inv_id", invController.buildEdit)
+
+// Route to update the inventory
+router.post("/update/", invValidator.inventoryRules(), invValidator.checkUpdateData, invController.updateInventory)
+
 //Route for the post of signup
 router.post('/addCat', invValidator.categoryRules(), invValidator.checkCatData, utilities.handleErrors(invController.createCategory))
 

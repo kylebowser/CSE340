@@ -1,0 +1,94 @@
+<h1><%= title %></h1>
+<%- messages() %>
+<form method="post" action="/inv/update" class="wf1">
+  <fieldset>
+    <label for="inv_make"
+      >Make:
+      <input
+        type="text"
+        name="inv_make"
+        id="inv_make"
+        required
+        value="<%=locals.inv_make%>"
+    /></label>
+    <label for="inv_model"
+      >Model:
+      <input
+        type="text"
+        name="inv_model"
+        id="inv_model"
+        required
+        value="<%=locals.inv_model%>"
+    /></label>
+    <label for="inv_year"
+      >Year:
+      <input
+        type="text"
+        name="inv_year"
+        id="inv_year"
+        required
+        value="<%=locals.inv_year%>"
+    /></label>
+    <label for="inv_description"
+      >Description:
+      <input
+        type="text"
+        name="inv_description"
+        id="inv_description"
+        required
+        value="<%=locals.inv_description%>"
+    /></label>
+        <label for="inv_image"
+      >Price:
+      <input
+        type="text"
+        name="inv_image"
+        id="inv_image"
+        required
+        value="<%=locals.inv_image%>"
+    /></label>
+        <label for="inv_thumbnail"
+      >Price:
+      <input
+        type="text"
+        name="inv_thumbnail"
+        id="inv_thumbnail"
+        required
+        value="<%=locals.inv_thumbnail%>"
+    /></label>
+    <label for="inv_price"
+      >Price:
+      <input
+        type="text"
+        name="inv_price"
+        id="inv_price"
+        required
+        value="<%=locals.inv_price%>"
+    /></label>
+    <label for="inv_miles"
+      >Miles:
+      <input
+        type="text"
+        name="inv_miles"
+        id="inv_miles"
+        required
+        value="<%=locals.inv_miles%>"
+    /></label>
+    <label for="inv_color"
+      >Color:
+      <input
+        type="text"
+        name="inv_color"
+        id="inv_color"
+        required
+        value="<%=locals.inv_color%>"
+    /></label>
+    <%- classificationSelect %>
+    <label for="submit"
+      ><input type="submit" id="submit" value="Update Vehicle"
+    /></label>
+    <input type="hidden" name="inv_id"
+<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+<% } %>>
+  </fieldset>
+</form>
