@@ -136,6 +136,31 @@ Util.buildClassificationList = async function (classification_id = null) {
     return classificationList
   }
 
+Util.buildWelcome = async function(data) {
+  let display = '<h2>Welcome ' + data.account_firstname + '</h2>' +
+  '<p>You\'re logged in</p>' + '<p><a href="/account/editAccount">Update Account Info</a></p>'
+  if (data.accountype != 'Client') {
+    display += '<h3>Inventory Managment</h3>' +
+    '<p><a href="../inv/inventory">Manage Inventory</a></p>'
+  }
+  return display
+
+ }
+
+Util.tools = (req, res, next) => {
+    let tools = '<div id="tools">'
+    if (res.locals.loggedin) {
+      const data = res.locals.accountData
+      const firstName = data.account_firstname
+      tools += '<a title="Click to accout managment" href="/account/">Welcome '+ firstName + '</a>' +
+      '<a title="click to logout" href="/account/logout">Logout</a></div>'
+  } else {
+    tools += '<a title="Click to log in" href="/account/login">My Account</a> </div>'
+  }
+  res.locals.tools = tools
+  next()
+ }
+
 
 /* ****************************************
  * Middleware For Handling Errors

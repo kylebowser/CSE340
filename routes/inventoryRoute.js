@@ -21,7 +21,13 @@ router.get("/addCat", invController.buildAddCat);
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 //Route to build the edit inventory view
-router.get("/edit/:inv_id", invController.buildEdit)
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEdit))
+
+//Route to build the delete inventory view
+router.get("/confirm/:inv_id", utilities.handleErrors(invController.buildDelete))
+
+// Route for posting delete inventory
+router.post("/delete/", utilities.handleErrors(invController.deleteInventory))
 
 // Route to update the inventory
 router.post("/update/", invValidator.inventoryRules(), invValidator.checkUpdateData, invController.updateInventory)

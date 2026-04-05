@@ -1,0 +1,61 @@
+<h1><%= title %></h1>
+<%- messages() %>
+
+<form method="post" action="/account/editInfo" class="wf1">
+  <fieldset>
+    <label for="fname"
+      >First Name<input
+        type="text"
+        name="account_firstname"
+        id="fname"
+        required
+        value="<%= locals.account_firstname %>"
+    /></label>
+    <label for="lname"
+      >Last Name<input
+        type="text"
+        name="account_lastname"
+        id="account_lastname"
+        required
+        value="<%= locals.account_lastname %>"
+    /></label>
+    <label for="email"
+      >Email<input
+        type="email"
+        name="account_email"
+        id="email"
+        placeholder="example@example.com"
+        required
+        value="<%= locals.account_email %>"
+    /></label>
+    <label for="submit"
+      ><input type="submit" id="submit" value="Update Account"
+    /></label>
+    <input type="hidden" name="account_id"
+<% if(locals.account_id) { %> value="<%= locals.account_id %>"
+<% } %>>
+  </fieldset>
+</form>
+<h2>Change Password</h2>
+<p>Passwords must be at least 12 characters and contain at least 1 number, 1
+      capital letter and 1 special character</p>
+<p>Note that your original password will be changed</p>
+
+<form method="post" action="/account/changePassword" class="wf1">
+  <fieldset>
+    <label for="account_password">New Password:
+    <input
+      type="password"
+      name="account_password"
+      id="account_password"
+      required
+      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+    /></label>
+    <label for="submit"
+      ><input type="submit" id="submit" value="Change Password"
+    /></label>
+        <input type="hidden" name="account_id"
+<% if(locals.account_id) { %> value="<%= locals.account_id %>"
+<% } %>>
+  </fieldset>
+</form>

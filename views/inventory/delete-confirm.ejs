@@ -1,0 +1,53 @@
+<h1><%= title %></h1>
+<%- messages() %>
+<p>Confirm Deletion - The delete is permanent.</p>
+<form method="post" action="/inv/delete" class="wf1">
+  <fieldset>
+    <label for="inv_make"
+      >Make:
+      <input
+        type="text"
+        name="inv_make"
+        id="inv_make"
+        required
+        readonly
+        value="<%=locals.inv_make%>"
+    /></label>
+    <label for="inv_model"
+      >Model:
+      <input
+        type="text"
+        name="inv_model"
+        id="inv_model"
+        required
+        readonly
+        value="<%=locals.inv_model%>"
+    /></label>
+    <label for="inv_year"
+      >Year:
+      <input
+        type="text"
+        name="inv_year"
+        id="inv_year"
+        required
+        readonly
+        value="<%=locals.inv_year%>"
+    /></label>
+    <label for="inv_price"
+      >Price:
+      <input
+        type="text"
+        name="inv_price"
+        id="inv_price"
+        required
+        readonly
+        value="<%=locals.inv_price%>"
+    /></label>
+    <label for="submit"
+      ><input type="submit" id="submit" value="Delete Vehicle"
+    /></label>
+    <input type="hidden" name="inv_id"
+<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+<% } %>>
+  </fieldset>
+</form>
