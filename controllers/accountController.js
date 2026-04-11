@@ -238,4 +238,55 @@ async function logout(req, res, next) {
   res.redirect("/")
 }
 
-module.exports = { buildLogin, buildSignup, buildActMan, registerAccount, accountLogin, buildEditor, editInfo, changePassword, logout }
+/* ***************************
+ *  Build My Reviews view
+ * ************************** */
+async function buildMyReviews(req, res, next) {
+  let nav = await utilities.getNav()
+  const account_id = res.locals.accountData.account_id
+  const data = await accountModel.getReviewByAccountId(account_id)
+  const grid = await utilities.buildReviewGrid(data)
+  res.render("./account/myReview", {
+    title: "My Reviews",
+    nav,
+    grid,
+    errors: null
+  })
+}
+
+/* ***************************
+ *  Build delete inventory view
+ * ************************** */
+async function buildDelete (req, res, next) {
+  const review_id = parseInt(req.params.review_id)
+  let nav = await utilities.getNav()
+  const data = await accountModel.getReviewByReviewId(review_id)
+  const itemData = data[0]
+  res.render("./account/delete-confirm", {
+    title: "Delete Confirm",
+    nav,
+    errors: null,
+    review: itemData.review,
+    review_id: itemData.review_id
+  })
+}
+
+/* ***************************
+ *  Delete Review Data
+ * ************************** */
+async function deleteReview(req, res, next) {
+  let nav = await utilities.getNav()
+  const review_id = parseInt(req.body.review_id)
+
+  const deleteResult = await accountModel.deleteReview(review_id)
+
+  if (deleteResult) {
+    req.flash("notice", `The review was successfully delete.`)
+    res.redirect("/account/myReviews")
+  } else {
+    req.flash("notice", "Sorry, the Delete failed.")
+    res.redirect("/account/myReviews")
+  }
+}
+
+module.exports = { buildLogin, buildSignup, buildActMan, registerAccount, accountLogin, buildEditor, editInfo, changePassword, logout, buildMyReviews, buildDelete, deleteReview }

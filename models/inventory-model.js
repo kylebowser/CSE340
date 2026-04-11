@@ -121,4 +121,32 @@ async function updateInventory(
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInvId, addCat, addInv, updateInventory, deleteInventory};
+/* *****************************
+*   Add New Review
+* *************************** */
+async function addReview(review, inv_id, account_id){
+  try {
+    const sql = "INSERT INTO review (review, inv_id, account_id) VALUES ($1, $2, $3) RETURNING *"
+    return await pool.query(sql, [review, inv_id, account_id])
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* ***************************
+ *  Get all inventory items and classification_name by classification_id
+ * ************************** */
+async function getReviewByInvId(inv_id) {
+  try {
+    const data = await pool.query(
+      `SELECT review FROM public.review AS i 
+      WHERE i.inv_id = $1`,
+      [inv_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getReviewByInvId error " + error)
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInvId, addCat, addInv, updateInventory, deleteInventory, addReview, getReviewByInvId};

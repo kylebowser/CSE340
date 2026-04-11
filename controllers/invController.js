@@ -299,5 +299,50 @@ invCont.deleteInventory = async function (req, res, next) {
   }
 }
 
+  /* ***************************
+ *  Build Reviews view
+ * ************************** */
+invCont.buildReviews = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const inv_id = req.params.inv_id
+  const data = await invModel.getReviewByInvId(inv_id)
+  const grid = await utilities.buildReviewGrid(data)
+  let account_id = res.locals.accountData?.account_id ?? 0
+  let reviewView = await utilities.buildReviews(res.locals.loggedin, inv_id, account_id)
+  res.render("./inventory/review", {
+    title: "Reviews",
+    nav,
+    reviewView,
+    grid,
+    errors: null
+  })
+}
+
+/* ****************************************
+*  Create Review
+* *************************************** */
+invCont.createReview = async function (req, res) {
+  let nav = await utilities.getNav()
+  const { review, inv_id, account_id } = req.body
+
+  console.log(invModel)
+  const regResult = await invModel.addReview(
+    review, 
+    inv_id, 
+    account_id
+  )
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, created new review.`
+    )
+    res.redirect("/account/myReviews")
+  } else {
+    req.flash("notice", "Sorry, the review failed.")
+    res.redirect("/account/myReviews")
+  }
+}
+
 
   module.exports = invCont

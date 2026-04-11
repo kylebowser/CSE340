@@ -26,6 +26,12 @@ router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEdit))
 //Route to build the delete inventory view
 router.get("/confirm/:inv_id", utilities.handleErrors(invController.buildDelete))
 
+//Route to inventory reviews
+router.get("/detail/:inv_id/reviews", utilities.handleErrors(invController.buildReviews))
+
+// Route for posting reviews
+router.post("/detail/reviews", utilities.handleErrors(invController.createReview))
+
 // Route for posting delete inventory
 router.post("/delete/", utilities.handleErrors(invController.deleteInventory))
 

@@ -83,4 +83,49 @@ async function changePassword(
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, updateAccount, changePassword}
+/* ***************************
+ *  Get all inventory items and classification_name by classification_id
+ * ************************** */
+async function getReviewByAccountId(account_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.review AS i 
+      WHERE i.account_id = $1`,
+      [account_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getReviewByAccountId error " + error)
+  }
+}
+
+/* ***************************
+ *  Get all inventory items and classification_name by classification_id
+ * ************************** */
+async function getReviewByReviewId(review_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.review AS i 
+      WHERE i.review_id = $1`,
+      [review_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getReviewByReviewId error " + error)
+  }
+}
+
+/* ***************************
+ *  Delete Review Item
+ * ************************** */
+ async function deleteReview(review_id) {
+  try {
+    const sql = 'DELETE FROM review WHERE review_id = $1'
+    const data = await pool.query(sql, [review_id])
+  return data
+  } catch (error) {
+    new Error("Delete review Error")
+  }
+}
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, updateAccount, changePassword, getReviewByAccountId, getReviewByReviewId, deleteReview}

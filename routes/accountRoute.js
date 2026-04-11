@@ -20,6 +20,15 @@ router.get('/', utilities.checkLogin, utilities.handleErrors(accountController.b
 //Route for the edit account info
 router.get("/editAccount", utilities.handleErrors(accountController.buildEditor))
 
+//Route for user reviews
+router.get("/myReviews", utilities.handleErrors(accountController.buildMyReviews))
+
+//Route to build the delete inventory view
+router.get("/confirm/:review_id", utilities.handleErrors(accountController.buildDelete))
+
+// Route for posting delete review
+router.post("/delete/", utilities.handleErrors(accountController.deleteReview))
+
 //Route to edit account info
 router.post("/editInfo/", regValidate.updateRules(), utilities.handleErrors(accountController.editInfo))
 

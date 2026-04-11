@@ -78,6 +78,7 @@ Util.buildDetailsDisplay = async function(data){
     display += '<p>' + 'Description: ' + vehicle.inv_description + '</p>'
     display += '<p>' + 'Color: ' + vehicle.inv_color + '</p>'
     display += '<p>' + 'Miles: ' + vehicle.inv_miles + '</p></div>'
+    display += '<p><a href="' + vehicle.inv_id + '/reviews">Reviews</a></p>'
     display += '</section>'
     })
   } else { 
@@ -143,9 +144,54 @@ Util.buildWelcome = async function(data) {
     display += '<h3>Inventory Managment</h3>' +
     '<p><a href="../inv/inventory">Manage Inventory</a></p>'
   }
-  return display
 
+  display += '<h3>My Reviews</h3>' +
+  '<p><a href="./myReviews">Manage Reviews</a></p>'
+
+  return display
  }
+
+ Util.buildReviews = async function(loggedin, inv_id, account_id) {
+  let display
+  if (loggedin) {
+    display = `
+      <form method="post" action="/inv/detail/reviews" class="wf1" id="reviewForm">
+        <fieldset>
+          <label for="review"
+            >Review:
+            <textarea name="review" id="review" class="textbox" required></textarea>
+          </label>
+          <label for="submit"
+            ><input type="submit" id="submit" value="Review"
+          /></label>
+          <input type="hidden" name="account_id" value="${account_id}">
+          <input type="hidden" name="inv_id" value="${inv_id}">
+        </fieldset>
+      </form>
+`
+  } else { display = `<p>Log in to leave a review.</p>`}
+return display
+}
+
+/* **************************************
+* Build the review view HTML
+* ************************************ */
+Util.buildReviewGrid = async function(data){
+  let grid
+  if(data.length > 0){
+    grid = '<ul id="inv-review">'
+    data.forEach(review => { 
+      console.log(data)
+      grid += '<li>'
+      grid +=  '<p>' + review.review + '<a href="/account/confirm/' + review.review_id + '" title="Click to delete">Delete</a></p>'
+      grid += '</li>'
+    })
+    grid += '</ul>'
+  } else { 
+    grid += '<p class="notice">Sorry, no reviews yet.</p>'
+  }
+  return grid
+}
 
 Util.tools = (req, res, next) => {
     let tools = '<div id="tools">'

@@ -1,0 +1,23 @@
+<h1><%= title %></h1>
+<%- messages() %>
+<p>Confirm Deletion - The delete is permanent.</p>
+<form method="post" action="/account/delete" class="wf1">
+  <fieldset>
+    <label for="review"
+      >Make:
+      <input
+        type="text"
+        name="review"
+        id="review"
+        required
+        readonly
+        value="<%=locals.review%>"
+    /></label>
+    <label for="submit"
+      ><input type="submit" id="submit" value="Delete Vehicle"
+    /></label>
+    <input type="hidden" name="review_id"
+<% if(locals.review_id) { %> value="<%= locals.review_id %>"
+<% } %>>
+  </fieldset>
+</form>
